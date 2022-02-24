@@ -1,0 +1,124 @@
+*$
+*TLV70433
+*****************************************************************************
+* (C) Copyright 2016 Texas Instruments Incorporated. All rights reserved.
+*****************************************************************************
+** This model is designed as an aid for customers of Texas Instruments.
+** TI and its licensors and suppliers make no warranties, either expressed
+** or implied, with respect to this model, including the warranties of
+** merchantability or fitness for a particular purpose. The model is
+** provided solely on an "as is" basis. The entire risk as to its quality
+** and performance is with the customer.
+*****************************************************************************
+*
+** Released by: WEBENCH Design Center, Texas Instruments Inc.
+* Part: TLV70433
+* Date: 03JUN2016
+* Model Type: Transient
+* Simulator: PSPICE
+* Simulator Version: 16.2.0.p001
+* EVM Order Number: 
+* EVM Users Guide: SBVU017-January 2011
+* Datasheet: SBVS148D -OCTOBER 2010-REVISED JANUARY 2015
+*
+* Model Version: Final 1.1
+*
+*****************************************************************************
+*
+* Updates:
+*
+* Final 1.00
+* Release to Web.
+*
+* Final 1.10
+* 1. Updated model with new template which supports load transients and Dropout voltage
+*****************************************************************************
+* Model Usage Notes:
+*
+* 1. The following features have been modelled
+*      a. Start-up behaviour is modelled
+*      b. Line transients do not match
+*      c. Load transients match up to 30% to 45%
+*      d. Vdropout v/s Iout is modelled
+*      e. Current limit is set to 300mA
+*      f. PSRR is modelled only till 1st pole and 1st Zero (Model limitation)
+* 2. Ground pin is tied to 0V internally hence this model cannot be used in inverting topology, also 
+*    Quiescent current, shutdown current and Temperature effects are not been modelled. 
+*
+*****************************************************************************
+.SUBCKT TLV70433_TRANS IN NC_0 NC_1 OUT GND
+R_U1_R1         GND U1_N749757  1G  
+V_U1_V4         U1_N749267 0 {UVLO}
+C_U1_C1         0 U1_N749757  {1e-6*SQRT(TTRN)}  
+R_U1_R5         U1_N751173 N522568  10 TC=0,0 
+X_U1_U5         IN U1_N749267 U1_N789480 UVLO_OK COMPHYS_BASIC_GEN PARAMS:
++  VDD=1 VSS=0 VTHRESH=0.5
+R_U1_R4         U1_N750599 U1_N749805  10 TC=0,0 
+E_U1_E2         U1_DROP 0 TABLE { V(LOAD, 0) } 
++ ( (0,0) (10m,75m) (50m,400m) (100m,850m) (150m,1.7) )
+C_U1_C2         0 U1_N749805  1n  
+E_U1_ABM14         U1_N754328 0 VALUE { IF(V(UVLO_OK)>0.5, {VREF}, 0)    }
+C_U1_C3         0 N522568  1n IC=0 
+V_U1_V6         U1_N789480 0 {UHYS}
+R_U1_R2         GND U1_N749805  1G  
+V_U1_V5         0 U1_N808527 -8.5m
+E_U1_ABM5         U1_N751173 0 VALUE { MIN(V(U1_N749805),  
++ MAX(V(IN)-V(U1_DROP), 0))   }
+X_U1_U4         U1_N808527 N522568 D_D
+E_U1_ABM4         U1_N750599 0 VALUE { V(U1_N749757)  
++ * (ABS(V(OUT)) + 1e-6)  
++ / (ABS(V(FB)) + 1e-6)  }
+R_U1_R3         U1_N754328 U1_N749757  {3.333e5*SQRT(TTRN)} TC=0,0 
+R_R5         N522990 VYY  {ROUT}  
+C_C3         GND VYY  1n  
+R_R8         UVLO_OK N522800  10 TC=0,0 
+R_R12         GND FB  840k  
+R_R11         GND NC_0  1E6 TC=0,0 
+C_C4         GND N522800  1u  
+R_R10         FB OUT  1.460meg  
+E_ABM1         N523010 0 VALUE { {MIN(V(VXX), (V(Vzz)+(ILIM*ROUT)))}    }
+R_R9         NC_0 IN  1E9 TC=0,0 
+X_F1    N522990 VZZ N522622 VYY TLV70433_F1 
+R_R1         VXX N522622  {RINP}  
+R_R2         N522568 VXX  {PSRR*RINP}  
+X_S2    N522800 GND IN N522622 TLV70433_S2 
+C_C1         VXX N522622  {1/(6.28*RINP*POLE)}  
+R_R13         NC_1 IN  1E9 TC=0,0 
+C_C2         VXX N522568  {1/(6.28*PSRR*RINP*ZERO)}  
+C_C5         N522622 GND  500n  
+R_R14         GND NC_1  1E6 TC=0,0 
+R_R6         N523010 VYY  10 TC=0,0 
+V_Vload         VZZ OUT 0Vdc
+E_ABM2         LOAD 0 VALUE { I(V_Vload)    }
+.PARAM  psrr=0.63m uvlo=2.49 ilim=300m pole=60 zero=2k rinp=1e7 ttrn=1m rout=1m
++  vref=1.205 uhys=0.1
+.ENDS TLV70433_TRANS
+*$
+.subckt TLV70433_F1 1 2 3 4  
+F_F1         3 4 VF_F1 1
+VF_F1         1 2 0V
+.ends TLV70433_F1
+*$
+.subckt TLV70433_S2 1 2 3 4  
+S_S2         3 4 1 2 _S2
+RS_S2         1 2 1G
+.MODEL         _S2 VSWITCH Roff=1E6 Ron=80 Voff=0.1V Von=0.8
+.ends TLV70433_S2
+*$
+.SUBCKT COMPHYS_BASIC_GEN INP INM HYS OUT PARAMS: VDD=1 VSS=0 VTHRESH=0.5	
+EIN INP1 INM1 INP INM 1 
+EHYS INP1 INP2 VALUE { IF( V(1) > {VTHRESH},-V(HYS),0) }
+EOUT OUT 0 VALUE { IF( V(INP2)>V(INM1), {VDD} ,{VSS}) }
+R1 OUT 1 1
+C1 1 0 5n
+RINP1 INP1 0 1K
+.ENDS COMPHYS_BASIC_GEN
+*$
+.subckt d_d 1 2
+d1 1 2 dd
+.model dd d
++ is=1e-015
++ n=0.01
++ tt=1e-011
+.ends d_d
+*$
