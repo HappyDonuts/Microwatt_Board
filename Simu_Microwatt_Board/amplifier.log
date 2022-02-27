@@ -1,0 +1,30 @@
+Circuit: * D:\Users\javi_\GitHub\Microwatt_Board\Simu_Microwatt_Board\amplifier.asc
+
+WARNING: Specified period is not longer than the sum of Trise, Tfall, and Ton for i1.  Increasing period to 0.5
+WARNING: Less than two connections to node VREF.  This node is used by V3.
+Direct Newton iteration for .op point succeeded.
+Ignoring empty pin current: Ix(u1:6)
+Ignoring empty pin current: Ix(u5:6)
+Ignoring empty pin current: Ix(u6:6)
+Ignoring empty pin current: Ix(u1:6)
+Ignoring empty pin current: Ix(u5:6)
+Ignoring empty pin current: Ix(u6:6)
+
+Date: Sun Feb 27 18:05:41 2022
+Total elapsed time: 0.091 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2406
+traniter = 2392
+tranpoints = 1169
+accept = 1145
+rejected = 24
+matrix size = 155
+fillins = 78
+solver = Normal
+Thread vector: 10.1/5.6[3] 2.7/9.6[1] 1.6/2.0[1] 0.5/5.2[1]  2592/500
+Matrix Compiler1: 10.46 KB object code size  2.0/1.1/[0.5]
+Matrix Compiler2: 13.62 KB object code size  1.0/1.2/[0.5]
+
