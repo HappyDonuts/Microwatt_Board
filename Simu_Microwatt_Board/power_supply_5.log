@@ -9,20 +9,20 @@ Ignoring empty pin current: Ix(u4:fb)
 Ignoring empty pin current: Ix(u4:vin)
 Ignoring empty pin current: Ix(u4:fb)
 
-Date: Sat Mar 05 19:14:05 2022
-Total elapsed time: 92.182 seconds.
+Date: Sun Mar 06 21:57:15 2022
+Total elapsed time: 93.445 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 14371246
-traniter = 14371205
-tranpoints = 4628670
-accept = 3541313
-rejected = 1087357
+totiter = 14204669
+traniter = 14204628
+tranpoints = 4559211
+accept = 3473979
+rejected = 1085232
 matrix size = 78
 fillins = 42
 solver = Normal
-Matrix Compiler1: 3.37 KB object code size  0.5/0.3/[0.1]
-Matrix Compiler2: 5.30 KB object code size  0.2/0.6/[0.2]
+Matrix Compiler1: 3.37 KB object code size  0.6/0.3/[0.2]
+Matrix Compiler2: 5.30 KB object code size  0.3/0.7/[0.3]
 
