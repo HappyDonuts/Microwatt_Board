@@ -1,0 +1,28 @@
+Circuit: * D:\Users\javi_\GitHub\Microwatt_Board\Simu_Microwatt_Board\power_supply_5.asc
+
+Questionable use of curly braces in "b§e_abmgate yint 0 v={if(v(a)>{{vthresh}},{{vdd}},{{vss}})}"
+    Error: undefined symbol in: "if([v](a)>((vthresh)),((vdd)),((vss)))"
+WARNING: Less than two connections to node U4:REF5V.  This node is used by V:U4:1.
+Direct Newton iteration for .op point succeeded.
+Ignoring empty pin current: Ix(u4:vin)
+Ignoring empty pin current: Ix(u4:fb)
+Ignoring empty pin current: Ix(u4:vin)
+Ignoring empty pin current: Ix(u4:fb)
+
+Date: Sat Mar 05 19:14:05 2022
+Total elapsed time: 92.182 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 14371246
+traniter = 14371205
+tranpoints = 4628670
+accept = 3541313
+rejected = 1087357
+matrix size = 78
+fillins = 42
+solver = Normal
+Matrix Compiler1: 3.37 KB object code size  0.5/0.3/[0.1]
+Matrix Compiler2: 5.30 KB object code size  0.2/0.6/[0.2]
+
